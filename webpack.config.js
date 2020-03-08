@@ -1,22 +1,34 @@
-const htmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require("webpack");
 const path = require("path");
+const htmlWebpackPlugin = require("html-webpack-plugin");
+const tsConfigPath = require("tsconfig-paths-webpack-plugin");
+const ForkTSCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
+const isDev = !(process.env.NODE_ENV === "production");
+
+console.log(process.env.NODE_ENV);
 module.exports = {
   entry: "./src/index.jsx",
+
   output: {
     path: path.join(__dirname, "public"),
     filename: "bundle.js"
   },
   resolve: {
-    extensions: [".js", ".jsx"]
+    extensions: [".js", ".jsx", ".tsx", ".ts"],
+    plugins: [new tsConfigPath()]
   },
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.[tj]sx?$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
+          loader: "babel-loader",
+          options: {
+            cacheDirectory: true,
+            cacheCompression: true
+          }
         }
       },
       {
@@ -30,10 +42,12 @@ module.exports = {
     contentBase: path.join(__dirname, "public")
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new htmlWebpackPlugin({
       template: "./src/index.html",
       filename: "index.html",
       title: "Template Web React"
-    })
+    }),
+    new ForkTSCheckerWebpackPlugin()
   ]
 };
