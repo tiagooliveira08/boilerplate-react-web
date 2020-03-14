@@ -6,10 +6,8 @@ const ForkTSCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 const isDev = !(process.env.NODE_ENV === "production");
 
-console.log(process.env.NODE_ENV);
 module.exports = {
-  entry: "./src/index.jsx",
-
+  entry: "./src/index",
   output: {
     path: path.join(__dirname, "public"),
     filename: "bundle.js"
