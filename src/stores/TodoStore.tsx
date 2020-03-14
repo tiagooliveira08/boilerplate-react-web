@@ -1,5 +1,5 @@
 import { RootStore } from "./rootStore";
-import { observable, action, decorate, computed } from "mobx";
+import { observable, action, computed } from "mobx";
 
 interface ITodoList {
   id: number;

@@ -10,7 +10,10 @@ export const Counter = observer(() => {
       {console.log(todoStore.todoList)}
       <p>{todoStore.todoStatus}</p>
       {todoStore.todoList.map(todo => (
-        <p>{todo.description}</p>
+        <ul>
+          <li>{todo.description}</li>
+          <li>{todo.isDone ? "Feito" : "Falta fazer"}</li>
+        </ul>
       ))}
     </div>
   );
