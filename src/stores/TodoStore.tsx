@@ -13,7 +13,8 @@ export class TodoStore {
     this.rootStore = rootStore;
   }
 
-  todoList = [
+  @observable
+  public todoList = [
     {
       id: 0,
       description: "Desenvolver BoilerPlate",
@@ -36,6 +37,7 @@ export class TodoStore {
     }
   ];
 
+  @action
   public createTodo({ description, isDone }: Omit<ITodoList, "id">) {
     this.todoList.concat({
       id: this.todoList.length + 1,
@@ -44,10 +46,12 @@ export class TodoStore {
     });
   }
 
+  @action
   public deleteTodo(id: number) {
     this.todoList = this.todoList.filter(todo => todo.id !== id);
   }
 
+  @action
   public editTodoList(id: number, { description, isDone }: ITodoList) {
     return this.todoList.map(todo => {
       const isCurrentTodo = todo.id === id;
@@ -60,17 +64,10 @@ export class TodoStore {
     });
   }
 
+  @computed
   public get todoStatus() {
     return `você tem ${
       (this.todoList || []).filter(todo => todo.isDone).length
     } pra fazer :)`;
   }
 }
-
-decorate(TodoStore, {
-  todoList: observable,
-  editTodoList: action,
-  createTodo: action,
-  deleteTodo: action,
-  todoStatus: computed
-});

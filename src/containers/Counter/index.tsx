@@ -7,6 +7,7 @@ export const Counter = observer(() => {
 
   return (
     <div>
+      {console.log(todoStore.todoList)}
       <p>{todoStore.todoStatus}</p>
       {todoStore.todoList.map(todo => (
         <p>{todo.description}</p>
