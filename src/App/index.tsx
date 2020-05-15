@@ -1,15 +1,6 @@
 import React from "react";
-import { Counter } from "./../containers/Counter";
+import { Home } from "containers";
 
-interface IProps {
-  projectName: string;
-}
-
-export const App = ({ projectName }: IProps) => {
-  return (
-    <div>
-      <p>{projectName}</p>
-      <Counter />
-    </div>
-  );
+export const App = () => {
+  return <Home />;
 };
